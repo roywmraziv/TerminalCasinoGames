@@ -1,17 +1,17 @@
 namespace Blackjack;
 
-public class Game
+public static class Game
 {
-    private int[] _dealtCards = new int[13];
+    //private static int[] _dealtCards = new int[13];
 
-    public int DrawCard(int[] currentHand)
+    public static int DealCard()
     {
         Random rnd = new Random(); // create an instance of random 
-        int newCard = rnd.Next(13); // generate a random number
+        int newCard = rnd.Next(1,10); // generate a random number
         return newCard; 
     }
 
-    public bool GameOver(int score1, int score2)
+    public static bool GameOver(int score1, int score2)
     {
         // check if either players' score is above 21 
         if (score1 >= 21 || score2 >= 21) 
@@ -24,7 +24,7 @@ public class Game
         }
     }
 
-    public int CalculateScore(int[] currentHand)
+    public static int CalculateScore(LinkedList<int> currentHand)
     {
         int score = 0; // start score count at zero 
 
@@ -41,5 +41,25 @@ public class Game
         }
 
         return score;
+    }
+
+    public static void DetermineResults(int currentPlayerScore, int currentDealerScore)
+    {
+        if (currentPlayerScore == currentDealerScore || (currentPlayerScore == 21 && currentDealerScore == 21))
+        {
+            Console.WriteLine("It's a push! Nobody Wins!");
+        }
+        else if (currentPlayerScore > 21)
+        {
+            Console.WriteLine("You lose! It's a bust!");
+        }
+        else if (currentDealerScore < 21 && currentPlayerScore < currentDealerScore)
+        {
+            Console.WriteLine("You lose!");
+        }
+        else
+        {
+            Console.WriteLine("You win! Congratulations!");
+        }
     }
 }
